@@ -6,13 +6,14 @@
         {
             if (MessageColor == null)
             {
-                A32TAK.MainWindow.rtbLogs.ForeColor = Color.White;
+                A32TAK.MainWindow.rtbLogs.SelectionColor = Color.White;
             }
             else
             {
-                A32TAK.MainWindow.rtbLogs.ForeColor = (Color)MessageColor;
+                A32TAK.MainWindow.rtbLogs.SelectionColor = (Color)MessageColor;
             }
-            A32TAK.MainWindow.rtbLogs.Text += Message + "\r\n";
+            A32TAK.MainWindow.rtbLogs.AppendText(Message + "\r\n");
+            A32TAK.MainWindow.rtbLogs.ScrollToCaret();
         }
     }
 }

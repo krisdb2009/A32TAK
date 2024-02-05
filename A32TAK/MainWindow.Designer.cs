@@ -35,6 +35,7 @@
             statusStrip1 = new StatusStrip();
             lblTargetIP = new Label();
             tbTargetIPAddresss = new TextBox();
+            btnSetTarget = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -97,11 +98,22 @@
             tbTargetIPAddresss.Size = new Size(171, 23);
             tbTargetIPAddresss.TabIndex = 4;
             // 
+            // btnSetTarget
+            // 
+            btnSetTarget.Location = new Point(325, 42);
+            btnSetTarget.Name = "btnSetTarget";
+            btnSetTarget.Size = new Size(75, 23);
+            btnSetTarget.TabIndex = 5;
+            btnSetTarget.Text = "Set";
+            btnSetTarget.UseVisualStyleBackColor = true;
+            btnSetTarget.Click += btnSetTarget_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(718, 447);
+            Controls.Add(btnSetTarget);
             Controls.Add(tbTargetIPAddresss);
             Controls.Add(lblTargetIP);
             Controls.Add(statusStrip1);
@@ -127,5 +139,6 @@
         private StatusStrip statusStrip1;
         private Label lblTargetIP;
         private TextBox tbTargetIPAddresss;
+        private Button btnSetTarget;
     }
 }

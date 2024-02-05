@@ -10,18 +10,17 @@ namespace A32TAK
         public uint Port { 
             get
             {
-                return _Port;
+                return (uint)_BindEndpoint.Port;
             }
             set
             {
-                _Port = value;
+                _BindEndpoint.Port = (int)value;
                 ReloadSettings();
             }
         }
         public UdpClient UdpClient = new();
         public event EventHandler<ReceivedDataArgs>? ReceivedData;
-        private uint _Port;
-        private IPEndPoint _IPEndPoint = new(IPAddress.Loopback, 12345);
+        private IPEndPoint _BindEndpoint = new(IPAddress.Loopback, 12345);
         public UdpListener()
         {
             ReloadSettings();
@@ -29,8 +28,8 @@ namespace A32TAK
             Task.Run(() => {
                 while (true)
                 {
-                    buffer = UdpClient.Receive(ref _IPEndPoint);
-                    string message = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+                    UdpClient.Client.Receive(buffer);
+                    string message = Encoding.ASCII.GetString(buffer, 0, buffer.Length).TrimEnd('\x00');
                     if (Regex.IsMatch(message, "^([0-9.]*,){2}[0-9.]*$"))
                     {
                         string[] parts = message.Split(',');
@@ -45,15 +44,14 @@ namespace A32TAK
                     else
                     {
                         Logger.Log("Received invalid packet.", Color.Red);
+                        Logger.Log("Got: " + message, Color.Red);
                     }
                 }
             });
-            
         } 
         public void ReloadSettings()
         {
-            _IPEndPoint.Port = (int)_Port;
-            UdpClient.Client.Bind(_IPEndPoint);
+            UdpClient.Client.Bind(_BindEndpoint);
         }
     }
     public class ReceivedDataArgs : EventArgs
