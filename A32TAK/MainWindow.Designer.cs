@@ -36,6 +36,8 @@
             lblTargetIP = new Label();
             tbTargetIPAddresss = new TextBox();
             btnSetTarget = new Button();
+            tbNMEA = new TextBox();
+            label1 = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -108,11 +110,29 @@
             btnSetTarget.UseVisualStyleBackColor = true;
             btnSetTarget.Click += btnSetTarget_Click;
             // 
+            // tbNMEA
+            // 
+            tbNMEA.Location = new Point(166, 87);
+            tbNMEA.Name = "tbNMEA";
+            tbNMEA.Size = new Size(362, 23);
+            tbNMEA.TabIndex = 6;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(36, 95);
+            label1.Name = "label1";
+            label1.Size = new Size(106, 15);
+            label1.TabIndex = 7;
+            label1.Text = "kevins nmea string";
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(718, 447);
+            Controls.Add(label1);
+            Controls.Add(tbNMEA);
             Controls.Add(btnSetTarget);
             Controls.Add(tbTargetIPAddresss);
             Controls.Add(lblTargetIP);
@@ -140,5 +160,7 @@
         private Label lblTargetIP;
         private TextBox tbTargetIPAddresss;
         private Button btnSetTarget;
+        public TextBox tbNMEA;
+        private Label label1;
     }
 }
