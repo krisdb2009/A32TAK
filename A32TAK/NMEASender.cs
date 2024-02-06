@@ -10,12 +10,23 @@ namespace A32TAK
         private UdpClient UdpClient = new();
         public NMEASender()
         {
-            A32TAK.Math.MathDone += Instance_MathDone;
+            A32TAK.UdpListener.ReceivedData += UdpListener_ReceivedData; ;
         }
-        private void Instance_MathDone(object? sender, MathDoneEventArgs e)
+
+        private void UdpListener_ReceivedData(object? sender, ReceivedDataArgs e)
         {
-            //string nmea = "$GPRMC,210230,A,3522.302,N,07344.041,W,,,050224,000.0,W*67";
-            //insert stuff
+
+
+
+
+            var asdf = MGRS2NMEA.LatLongFromMGRSString("33T WN 12345 67890");
+
+
+
+
+
+
+
 
             string nmea = A32TAK.MainWindow.tbNMEA.Text;
             string? nmeaWithChecksum = CalculateChecksum(nmea);
