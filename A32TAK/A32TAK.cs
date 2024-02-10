@@ -8,7 +8,6 @@ namespace A32TAK
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
             Application.Run(MainWindow);
         }
     }

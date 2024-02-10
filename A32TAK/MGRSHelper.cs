@@ -2,25 +2,22 @@
 {
     public static class MGRSHelper
     {
-        public static (double lat, double lon) LatLongFromMGRSString(string MGRS)
+        public static (double Latitude, double Longitude) LatLongFromMGRSString(uint LatitudeBand, char UTMZone, char GridSquareFirst, char GridSquareSecond, uint Easting, uint Northing)
         {
-            string[] b = MGRS.Trim().Split(' ');
-            if (b == null || b.Length != 4) return (0, 0);
-            double c = (b[0].Length < 3) ? b[0][0] : double.Parse(b[0].Substring(0, 2));
-            char d = (b[0].Length < 3) ? b[0][1] : b[0][2];
-            double e = (c * 6 - 183) * Math.PI / 180;
-            double f = new string[] { "ABCDEFGH", "JKLMNPQR", "STUVWXYZ" }[(int)(c - 1) % 3].IndexOf(b[1][0]) + 1;
-            double g = "CDEFGHJKLMNPQRSTUVWXX".IndexOf(d);
-            double h = new string[] { "ABCDEFGHJKLMNPQRSTUV", "FGHJKLMNPQRSTUVABCDE" }[(int)(c - 1) % 2].IndexOf(b[1][1]);
-            double[] i = new double[] { 1.1, 2.0, 2.8, 3.7, 4.6, 5.5, 6.4, 7.3, 8.2, 9.1, 0, 0.8, 1.7, 2.6, 3.5, 4.4, 5.3, 6.2, 7.0, 7.9 };
-            double[] j = new double[] { 0, 2, 2, 2, 4, 4, 6, 6, 8, 8, 0, 0, 0, 2, 2, 4, 4, 6, 6, 6};
+            double dLatitudeBand = LatitudeBand;
+            double e = (dLatitudeBand * 6 - 183) * Math.PI / 180;
+            double f = new string[] { "ABCDEFGH", "JKLMNPQR", "STUVWXYZ" }[(int)(dLatitudeBand - 1) % 3].IndexOf(GridSquareFirst) + 1;
+            double g = "CDEFGHJKLMNPQRSTUVWXX".IndexOf(UTMZone);
+            double h = new string[] { "ABCDEFGHJKLMNPQRSTUV", "FGHJKLMNPQRSTUVABCDE" }[(int)(dLatitudeBand - 1) % 2].IndexOf(GridSquareSecond);
+            double[] i = [1.1, 2.0, 2.8, 3.7, 4.6, 5.5, 6.4, 7.3, 8.2, 9.1, 0, 0.8, 1.7, 2.6, 3.5, 4.4, 5.3, 6.2, 7.0, 7.9];
+            double[] j = [0, 2, 2, 2, 4, 4, 6, 6, 8, 8, 0, 0, 0, 2, 2, 4, 4, 6, 6, 6];
             double k = i[(int)g];
             double l = j[(int)g] + h / 10;
             if (l < k) l += 2;
-            double m = f * 100000.0 + double.Parse(b[2]);
-            double n = l * 1000000 + double.Parse(b[3]);
+            double m = f * 100000.0 + Easting;
+            double n = l * 1000000 + Northing;
             m -= 500000.0;
-            if (d < 'N') n -= 10000000.0;
+            if (UTMZone < 'N') n -= 10000000.0;
             m /= 0.9996;
             n /= 0.9996;
             double o = n / 6367449.14570093;
@@ -54,15 +51,11 @@
             double aj = -61.0 - 90.0 * r - 45.0 * s - 107.0 * u + 162.0 * r * u;
             double ak = -61.0 - 662.0 * r - 1320.0 * s - 720.0 * (s * r);
             double al = 1385.0 + 3633.0 * r + 4095.0 * s + 1575 * (s * r);
-            double lat = p + y * af * (m * m) + aa * ah * Math.Pow(m, 4) + ac * aj * Math.Pow(m, 6) + ae * al * Math.Pow(m, 8);
-            double lng = e + x * m + z * ag * Math.Pow(m, 3) + ab * ai * Math.Pow(m, 5) + ad * ak * Math.Pow(m, 7);
-            lat = lat * 180 / Math.PI;
-            lng = lng * 180 / Math.PI;
-            return (lat, lng);
+            double Latitude = p + y * af * (m * m) + aa * ah * Math.Pow(m, 4) + ac * aj * Math.Pow(m, 6) + ae * al * Math.Pow(m, 8);
+            double Longitude = e + x * m + z * ag * Math.Pow(m, 3) + ab * ai * Math.Pow(m, 5) + ad * ak * Math.Pow(m, 7);
+            Latitude = Latitude * 180 / Math.PI;
+            Longitude = Longitude * 180 / Math.PI;
+            return (Latitude, Longitude);
         }
-        //public static (double dm, double dir) ConvertToDegreesMinutes(double deg, bool isLatitude)
-        //{
-
-        //}
     }
 }

@@ -29,7 +29,7 @@ namespace A32TAK
             precisionLocation.AddAttribute("altitudesrc", "GPS");
             xEvent.AppendChild(precisionLocation);
             XmlElement track = Document.CreateElement("track");
-            track.AddAttribute("course", "0");
+            track.AddAttribute("course", "180");
             track.AddAttribute("speed", "0");
             xEvent.AppendChild(track);
             XmlElement remarks = Document.CreateElement("remarks");

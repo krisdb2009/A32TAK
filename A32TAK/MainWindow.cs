@@ -25,10 +25,5 @@ namespace A32TAK
             }
             A32TAK.NMEASender.Target = target;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
