@@ -14,7 +14,7 @@ namespace A32TAK
         }
         private void UdpListener_ReceivedData(object? sender, ReceivedDataArgs e)
         {
-            (double latitude, double longitude) = MGRSHelper.LatLongFromMGRSString(18, 'S', 'X', 'E', (uint)e.X, (uint)e.Y);
+            (double latitude, double longitude) = MGRSHelper.LatLongFromMGRS(18, 'S', 'X', 'E', (uint)e.X, (uint)e.Y);
             string cotXml = new COTBuilder(latitude, longitude).Document.OuterXml;
             byte[] cotXmlBytes = Encoding.ASCII.GetBytes(cotXml);
             if (Target != null) UdpClient.Send(cotXmlBytes, cotXmlBytes.Length, Target);

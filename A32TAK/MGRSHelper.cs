@@ -2,7 +2,7 @@
 {
     public static class MGRSHelper
     {
-        public static (double Latitude, double Longitude) LatLongFromMGRSString(uint LatitudeBand, char UTMZone, char GridSquareFirst, char GridSquareSecond, uint Easting, uint Northing)
+        public static (double Latitude, double Longitude) LatLongFromMGRS(uint LatitudeBand, char UTMZone, char GridSquareFirst, char GridSquareSecond, uint Easting, uint Northing)
         {
             double dLatitudeBand = LatitudeBand;
             double e = (dLatitudeBand * 6 - 183) * Math.PI / 180;
