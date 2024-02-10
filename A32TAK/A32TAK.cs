@@ -4,7 +4,7 @@ namespace A32TAK
     {
         public static MainWindow MainWindow = new();
         public static UdpListener UdpListener = new();
-        public static NMEASender NMEASender = new();
+        public static COTSender NMEASender = new();
         [STAThread]
         static void Main()
         {

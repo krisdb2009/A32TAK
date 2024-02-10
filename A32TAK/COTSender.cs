@@ -4,11 +4,11 @@ using System.Text;
 
 namespace A32TAK
 {
-    public class NMEASender
+    public class COTSender
     {
         public IPEndPoint? Target;
         private UdpClient UdpClient = new();
-        public NMEASender()
+        public COTSender()
         {
             A32TAK.UdpListener.ReceivedData += UdpListener_ReceivedData; ;
         }
@@ -17,23 +17,12 @@ namespace A32TAK
         {
 
 
+            string cotXml = new COTBuilder(35.371700, -73.734031).Document.OuterXml;
 
-
-            var asdf = MGRS2NMEA.LatLongFromMGRSString("33T WN 12345 67890");
-
-
-
-
-
-
-
-
-            string nmea = A32TAK.MainWindow.tbNMEA.Text;
-            string? nmeaWithChecksum = CalculateChecksum(nmea);
-            if (nmeaWithChecksum == null) return;
-            byte[] nmeaBytes = Encoding.ASCII.GetBytes(nmeaWithChecksum);
-            if (Target != null) UdpClient.Send(nmeaBytes, nmeaBytes.Length, Target);
+            byte[] cotXmlBytes = Encoding.ASCII.GetBytes(cotXml);
+            if (Target != null) UdpClient.Send(cotXmlBytes, cotXmlBytes.Length, Target);
         }
+        /*
         private string? CalculateChecksum(string NMEA)
         {
             string content = NMEA;
@@ -50,5 +39,6 @@ namespace A32TAK
             }
             return NMEA + BitConverter.ToString(new[] { checksum });
         }
+        */
     }
 }

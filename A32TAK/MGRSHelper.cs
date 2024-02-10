@@ -1,6 +1,6 @@
 ﻿namespace A32TAK
 {
-    public static class MGRS2NMEA
+    public static class MGRSHelper
     {
         public static (double lat, double lon) LatLongFromMGRSString(string MGRS)
         {
@@ -60,9 +60,9 @@
             lng = lng * 180 / Math.PI;
             return (lat, lng);
         }
-        public static (double dm, double dir) ConvertToDegreesMinutes(double deg, bool isLatitude)
-        {
+        //public static (double dm, double dir) ConvertToDegreesMinutes(double deg, bool isLatitude)
+        //{
 
-        }
+        //}
     }
 }
