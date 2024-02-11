@@ -2,13 +2,16 @@
 {
     public static class MGRSHelper
     {
-        public static (double Latitude, double Longitude) LatLongFromMGRS(uint LatitudeBand, char UTMZone, char GridSquareFirst, char GridSquareSecond, uint Easting, uint Northing)
+        public static char[] LatitudeBandRange = "CDEFGHJKLMNPQRSTUVWXX".ToCharArray();
+        public static char[] GridSquareFirstRange = "ABCDEFGHJKLMNPQRSTUVWXYZ".ToCharArray();
+        public static char[] GridSquareSecondRange = "ABCDEFGHJKLMNPQRSTUVFGHJKLMNPQRSTUVABCDE".ToCharArray();
+        public static (double Latitude, double Longitude) LatLongFromMGRS(uint UTMZone, char LatitudeBand, char GridSquareFirst, char GridSquareSecond, uint Easting, uint Northing)
         {
-            double dLatitudeBand = LatitudeBand;
-            double e = (dLatitudeBand * 6 - 183) * Math.PI / 180;
-            double f = new string[] { "ABCDEFGH", "JKLMNPQR", "STUVWXYZ" }[(int)(dLatitudeBand - 1) % 3].IndexOf(GridSquareFirst) + 1;
-            double g = "CDEFGHJKLMNPQRSTUVWXX".IndexOf(UTMZone);
-            double h = new string[] { "ABCDEFGHJKLMNPQRSTUV", "FGHJKLMNPQRSTUVABCDE" }[(int)(dLatitudeBand - 1) % 2].IndexOf(GridSquareSecond);
+            double dUTMZone = UTMZone;
+            double e = (dUTMZone * 6 - 183) * Math.PI / 180;
+            double f = new string[] { "ABCDEFGH", "JKLMNPQR", "STUVWXYZ" }[(int)(dUTMZone - 1) % 3].IndexOf(GridSquareFirst) + 1;
+            double g = "CDEFGHJKLMNPQRSTUVWXX".IndexOf(LatitudeBand);
+            double h = new string[] { "ABCDEFGHJKLMNPQRSTUV", "FGHJKLMNPQRSTUVABCDE" }[(int)(dUTMZone - 1) % 2].IndexOf(GridSquareSecond);
             double[] i = [1.1, 2.0, 2.8, 3.7, 4.6, 5.5, 6.4, 7.3, 8.2, 9.1, 0, 0.8, 1.7, 2.6, 3.5, 4.4, 5.3, 6.2, 7.0, 7.9];
             double[] j = [0, 2, 2, 2, 4, 4, 6, 6, 8, 8, 0, 0, 0, 2, 2, 4, 4, 6, 6, 6];
             double k = i[(int)g];
@@ -17,7 +20,7 @@
             double m = f * 100000.0 + Easting;
             double n = l * 1000000 + Northing;
             m -= 500000.0;
-            if (UTMZone < 'N') n -= 10000000.0;
+            if (LatitudeBand < 'N') n -= 10000000.0;
             m /= 0.9996;
             n /= 0.9996;
             double o = n / 6367449.14570093;

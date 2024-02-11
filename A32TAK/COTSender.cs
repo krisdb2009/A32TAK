@@ -6,15 +6,23 @@ namespace A32TAK
 {
     public class COTSender
     {
+        public uint? UTMZone;
+        public char? LatitudeBand;
+        public char? GridSquareFirst;
+        public char? GridSquareSecond;
         public IPEndPoint? Target;
         private UdpClient UdpClient = new();
         public COTSender()
         {
-            A32TAK.UdpListener.ReceivedData += UdpListener_ReceivedData; ;
+            A32TAK.UdpListener.ReceivedData += UdpListener_ReceivedData;
         }
         private void UdpListener_ReceivedData(object? sender, ReceivedDataArgs e)
         {
-            (double latitude, double longitude) = MGRSHelper.LatLongFromMGRS(18, 'S', 'X', 'E', (uint)e.X, (uint)e.Y);
+            if (UTMZone == null) return;
+            if (LatitudeBand == null) return;
+            if (GridSquareFirst == null) return;
+            if (GridSquareSecond == null) return;
+            (double latitude, double longitude) = MGRSHelper.LatLongFromMGRS((uint)UTMZone, (char)LatitudeBand, (char)GridSquareFirst, (char)GridSquareSecond, (uint)e.X, (uint)e.Y);
             string cotXml = new COTBuilder(latitude, longitude).Document.OuterXml;
             byte[] cotXmlBytes = Encoding.ASCII.GetBytes(cotXml);
             if (Target != null) UdpClient.Send(cotXmlBytes, cotXmlBytes.Length, Target);
