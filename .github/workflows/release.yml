@@ -1,0 +1,11 @@
+name: Release
+
+on:
+  push:
+    tags: ["*"]
+
+jobs:
+  release:
+
+    runs-on: linux-latest
+
