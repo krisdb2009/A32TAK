@@ -6,8 +6,6 @@ on:
 
 jobs:
   release:
-
-    runs-on: linux-latest
     steps:
     - name: Download artifact
       uses: actions/download-artifact@v4.1.2
