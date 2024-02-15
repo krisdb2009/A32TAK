@@ -10,10 +10,10 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Version>$(Version)</Version>
-		<Company>Dylan Bickerstaff / Kevin Bickerstaff</Company>
+		<Company>Dylan B / Kevin B</Company>
 		<Title>$(AssemblyName)</Title>
 		<Description>$(AssemblyName) Arma 3 to COT TAK relay.</Description>
-		<Copyright>Dylan Bickerstaff / Kevin Bickerstaff</Copyright>
+		<Copyright>Dylan B / Kevin B</Copyright>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
 		<Version>1.0.0.0</Version>
