@@ -11,7 +11,7 @@ namespace A3MODSIM
             while (true)
             {
                 UdpClient client = new();
-                string message = "14318.3,15810.1,17.8204";
+                string message = "{\"velocityVector\": [0, 0, 0], \"pos\": [14264.6, 15899.7, 18.0431], \"profileName\": \"kevin\", \"pitch\": 0, \"roll\": 0, \"dir\": 345.942, \"speed\": 0}";
                 byte[] bytes = Encoding.ASCII.GetBytes(message);
                 client.Send(bytes, bytes.Length, new IPEndPoint(IPAddress.Loopback, 12345));
                 Console.WriteLine(message);

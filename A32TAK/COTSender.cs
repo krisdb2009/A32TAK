@@ -23,7 +23,7 @@ namespace A32TAK
             if (GridSquareFirst == null) return;
             if (GridSquareSecond == null) return;
             (double latitude, double longitude) = MGRSHelper.LatLongFromMGRS((uint)UTMZone, (char)LatitudeBand, (char)GridSquareFirst, (char)GridSquareSecond, (uint)e.X, (uint)e.Y);
-            string cotXml = new COTBuilder(latitude, longitude).Document.OuterXml;
+            string cotXml = new COTBuilder(latitude, longitude, e.Direction, e.Speed / 3.6).Document.OuterXml;
             byte[] cotXmlBytes = Encoding.ASCII.GetBytes(cotXml);
             if (Target != null) UdpClient.Send(cotXmlBytes, cotXmlBytes.Length, Target);
         }

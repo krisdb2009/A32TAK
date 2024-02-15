@@ -5,7 +5,7 @@ namespace A32TAK
     public class COTBuilder
     {
         public XmlDocument Document = new();
-        public COTBuilder(double Latitude, double Longitude)
+        public COTBuilder(double Latitude, double Longitude, double Direction, double Speed)
         {
             XmlDeclaration xDeclaration = Document.CreateXmlDeclaration("1.0", null, "yes");
             Document.AppendChild(xDeclaration);
@@ -30,8 +30,8 @@ namespace A32TAK
             xPrecisionLocation.AddAttribute("altitudesrc", "GPS");
             xDetail.AppendChild(xPrecisionLocation);
             XmlElement xTrack = Document.CreateElement("track");
-            xTrack.AddAttribute("course", "90");
-            xTrack.AddAttribute("speed", "25");
+            xTrack.AddAttribute("course", Direction.ToString());
+            xTrack.AddAttribute("speed", Speed.ToString());
             xDetail.AppendChild(xTrack);
             XmlElement xRemarks = Document.CreateElement("remarks");
             xRemarks.InnerText = "A32TAK";
