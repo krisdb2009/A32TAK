@@ -10,12 +10,12 @@
     <Nullable>enable</Nullable>
     <InvariantGlobalization>true</InvariantGlobalization>
 	<Version>$(Version)</Version>
-	<Company>Dylan Bickerstaff / Kevin Bickerstaff</Company>
+	<Company>Dylan B / Kevin B</Company>
 	<Title>$(AssemblyName)</Title>
 	<Description>$(AssemblyName) Arma 3 to COT TAK relay.</Description>
-	<Copyright>Dylan Bickerstaff / Kevin Bickerstaff</Copyright>
+	<Copyright>Dylan B / Kevin B</Copyright>
 	<AssemblyVersion>$(Version)</AssemblyVersion>
 	<FileVersion>$(Version)</FileVersion>
-	<Version>0.0.0.0</Version>
+	<Version>1.0.0.0</Version>
   </PropertyGroup>
 </Project>
