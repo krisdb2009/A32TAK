@@ -61,7 +61,7 @@
             lblCredits.Name = "lblCredits";
             lblCredits.Size = new Size(251, 15);
             lblCredits.TabIndex = 2;
-            lblCredits.Text = "Written by Dylan Bickerstaff / Kevin Bickerstaff";
+            lblCredits.Text = "Written by Dylan B / Kevin B";
             // 
             // About
             // 
