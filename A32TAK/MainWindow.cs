@@ -30,6 +30,7 @@ namespace A32TAK
             tbLatitudeBand.Text = profile.LatitudeBand.ToString();
             tbGridSquare1.Text = profile.GridSquareFirst.ToString();
             tbGridSquare2.Text = profile.GridSquareSecond.ToString();
+            tbGeoidHeight.Text = profile.GeoidHeight.ToString();
             btnSetTarget.PerformClick();
         }
         private void UdpListener_ReceivedData(object? sender, ReceivedDataArgs e)

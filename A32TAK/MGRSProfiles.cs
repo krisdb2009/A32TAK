@@ -24,7 +24,7 @@
             new()
             {
                 Name = "Takistan",
-                GeoidHeight = 0,
+                GeoidHeight = 2026.1,
                 UTMZone = 57,
                 LatitudeBand = 'Q',
                 GridSquareFirst = 'T',
