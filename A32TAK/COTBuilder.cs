@@ -5,7 +5,7 @@ namespace A32TAK
     public class COTBuilder
     {
         public XmlDocument Document = new();
-        public COTBuilder(double Latitude, double Longitude, double Direction, double Speed)
+        public COTBuilder(double Latitude, double Longitude, double Direction, double Speed, double Height)
         {
             XmlDeclaration xDeclaration = Document.CreateXmlDeclaration("1.0", null, "yes");
             Document.AppendChild(xDeclaration);
@@ -20,7 +20,7 @@ namespace A32TAK
             XmlElement xPoint = Document.CreateElement("point");
             xPoint.AddAttribute("lat", Latitude.ToString());
             xPoint.AddAttribute("lon", Longitude.ToString());
-            xPoint.AddAttribute("hae", "-44.6");
+            xPoint.AddAttribute("hae", Height.ToString());
             xPoint.AddAttribute("ce", "0");
             xPoint.AddAttribute("le", "0");
             xEvent.AppendChild(xPoint);

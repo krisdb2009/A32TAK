@@ -1,14 +1,14 @@
-﻿using System.Net.Sockets;
-using System.Net;
+﻿using System.Net;
+using System.Net.Sockets;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Text.Json;
 
 namespace A32TAK
 {
     public class UdpListener
     {
-        public uint Port { 
+        public uint Port
+        {
             get
             {
                 return (uint)_BindEndpoint.Port;
@@ -26,7 +26,8 @@ namespace A32TAK
         {
             ReloadSettings();
             byte[] buffer = new byte[512];
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 while (true)
                 {
                     UdpClient.Client.Receive(buffer);
@@ -34,7 +35,7 @@ namespace A32TAK
                     try
                     {
                         JsonReceivedData jrd = JsonSerializer.Deserialize<JsonReceivedData>(
-                            message, 
+                            message,
                             new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, IncludeFields = true }
                         );
                         ReceivedData?.Invoke(this, ParseJsonData(jrd));

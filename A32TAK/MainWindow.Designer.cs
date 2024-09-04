@@ -46,6 +46,7 @@
             tsmAbout = new ToolStripMenuItem();
             lblActivity = new Label();
             lblActivityL = new Label();
+            tbGeoidHeight = new TextBox();
             msMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -126,9 +127,9 @@
             lblMGRSDesc.FlatStyle = FlatStyle.System;
             lblMGRSDesc.Location = new Point(12, 79);
             lblMGRSDesc.Name = "lblMGRSDesc";
-            lblMGRSDesc.Size = new Size(293, 15);
+            lblMGRSDesc.Size = new Size(402, 15);
             lblMGRSDesc.TabIndex = 10;
-            lblMGRSDesc.Text = "UTM Zone, Latitude Band, Grid Square 1, Grid Square 2";
+            lblMGRSDesc.Text = "UTM Zone, Latitude Band, Grid Square 1, Grid Square 2             Geoid Height";
             // 
             // tbUTMZone
             // 
@@ -195,11 +196,19 @@
             lblActivityL.TabIndex = 14;
             lblActivityL.Text = "Activity:";
             // 
+            // tbGeoidHeight
+            // 
+            tbGeoidHeight.Location = new Point(336, 97);
+            tbGeoidHeight.Name = "tbGeoidHeight";
+            tbGeoidHeight.Size = new Size(46, 23);
+            tbGeoidHeight.TabIndex = 15;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(651, 458);
+            Controls.Add(tbGeoidHeight);
             Controls.Add(lblActivityL);
             Controls.Add(tbUTMZone);
             Controls.Add(lblMGRSDesc);
@@ -244,5 +253,6 @@
         private ToolStripMenuItem tsmAbout;
         private Label lblActivity;
         private Label lblActivityL;
+        private TextBox tbGeoidHeight;
     }
 }

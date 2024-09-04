@@ -4,7 +4,8 @@
     {
         public static void Log(string Message, Color? MessageColor = null)
         {
-            A32TAK.MainWindow.Invoke(() => {
+            A32TAK.MainWindow.Invoke(() =>
+            {
                 if (MessageColor == null)
                 {
                     A32TAK.MainWindow.rtbLogs.SelectionColor = Color.White;

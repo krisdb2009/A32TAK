@@ -3,6 +3,7 @@
     public struct MGRSProfile
     {
         public string Name;
+        public double GeoidHeight;
         public uint UTMZone;
         public char LatitudeBand;
         public char GridSquareFirst;
@@ -14,6 +15,7 @@
             new()
             {
                 Name = "Altis",
+                GeoidHeight = -44.7,
                 UTMZone = 18,
                 LatitudeBand = 'S',
                 GridSquareFirst = 'X',
@@ -22,6 +24,7 @@
             new()
             {
                 Name = "Takistan",
+                GeoidHeight = 0,
                 UTMZone = 57,
                 LatitudeBand = 'Q',
                 GridSquareFirst = 'T',

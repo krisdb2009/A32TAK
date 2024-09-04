@@ -34,7 +34,8 @@ namespace A32TAK
         }
         private void UdpListener_ReceivedData(object? sender, ReceivedDataArgs e)
         {
-            Task.Run(async () => {
+            Task.Run(async () =>
+            {
                 Invoke(() => lblActivity.ForeColor = Color.LimeGreen);
                 await Task.Delay(100);
                 Invoke(() => lblActivity.ForeColor = Color.Gray);
@@ -92,6 +93,15 @@ namespace A32TAK
             else
             {
                 Logger.Log("Could not parse grid square.", Color.Red);
+            }
+            if (double.TryParse(tbGeoidHeight.Text, out double geoidHeight))
+            {
+                Logger.Log("Geoid Height set to: " + geoidHeight.ToString() + '.', Color.Green);
+                A32TAK.COTSender.GeoidHeight = geoidHeight;
+            }
+            else
+            {
+                Logger.Log("Could not parse Geoid Height.", Color.Red);
             }
         }
         private void tsmClose_Click(object sender, EventArgs e)
