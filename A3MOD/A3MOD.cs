@@ -37,7 +37,13 @@ namespace A3MOD
 #else
         [DllExport("_RVExtension@12", CallingConvention = CallingConvention.Winapi)]
 #endif
-        public static void RvExtension(StringBuilder output, uint outputSize, [MarshalAs(UnmanagedType.LPStr)] string function) { }
+        public static void RvExtension(StringBuilder output, uint outputSize, [MarshalAs(UnmanagedType.LPStr)] string function)
+        {
+            if (function == ":READY:")
+            {
+                output.Append("OK");
+            }
+        }
 
         /// <summary>
         /// The entry point for the callExtensionArgs command.
@@ -61,8 +67,13 @@ namespace A3MOD
             uint argCount
         )
         {
-            if (function == "send" && argCount == 1)
-            {
+            if (
+                (
+                    function == "send" ||
+                    function == ":POS:"
+                ) && 
+                argCount == 1
+            ) {
                 UdpClient.Send(Encoding.ASCII.GetBytes(args[0]), Encoding.ASCII.GetByteCount(args[0]), SourceEndpoint);
             }
             return 0;
