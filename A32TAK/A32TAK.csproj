@@ -18,6 +18,7 @@
 		<FileVersion>$(Version)</FileVersion>
 		<Version>1.1.0.0</Version>
 		<ApplicationIcon>A32TAK.ico</ApplicationIcon>
+		<Platforms>AnyCPU;x64;x86</Platforms>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Content Include="A32TAK.ico" />
