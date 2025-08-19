@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿//using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -10,7 +10,7 @@ namespace A3MOD
     {
         public static UdpClient UdpClient = new UdpClient();
         public static IPEndPoint SourceEndpoint = new IPEndPoint(IPAddress.Loopback, 12345);
-        public static StreamWriter Log = new StreamWriter("C:\\Users\\Public\\Documents\\A3MOD.log", true);
+        //public static StreamWriter Log = new StreamWriter("C:\\Users\\Public\\Documents\\A3MOD.log", true);
         /// <summary>
         /// Gets called when Arma starts up and loads all extension.
         /// It's perfect to load in static objects in a separate thread so that the extension doesn't needs any separate initalization
@@ -18,9 +18,9 @@ namespace A3MOD
         /// <param name="output">The string builder object that contains the result of the function</param>
         /// <param name="outputSize">The maximum size of bytes that can be returned</param>
 		[DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
-        public static void RvExtensionVersion(StringBuilder output, uint outputSize)
+        public static void RvExtensionVersion(StringBuilder output, uint _1)
         {
-            Log.WriteLine("Initialized.");
+            //Log.WriteLine("Initialized.");
             output.Append("A32TAK Helper");
         }
 
@@ -31,13 +31,10 @@ namespace A3MOD
         /// <param name="outputSize">The maximum size of bytes that can be returned</param>
         /// <param name="function">The string argument that is used along with callExtension</param>
 		[DllExport("RVExtension", CallingConvention = CallingConvention.Winapi)]
-        public static void RvExtension(StringBuilder output, uint outputSize, [MarshalAs(UnmanagedType.LPStr)] string function)
+        public static void RvExtension(StringBuilder _1, uint _2, [MarshalAs(UnmanagedType.LPStr)] string function)
         {
-            Log.WriteLine(function);
-            if (function == ":READY:")
-            {
-                output.Append("OK");
-            }
+            //Log.WriteLine(function);
+            UdpClient.Send(Encoding.ASCII.GetBytes(function), Encoding.ASCII.GetByteCount(function), SourceEndpoint);
         }
 
         /// <summary>
@@ -52,23 +49,15 @@ namespace A3MOD
         ///
 		[DllExport("RVExtensionArgs", CallingConvention = CallingConvention.Winapi)]
         public static int RvExtensionArgs(
-            StringBuilder output, 
-            uint outputSize, 
-            [MarshalAs(UnmanagedType.LPStr)] string function,
+            StringBuilder _1, 
+            uint _2, 
+            [MarshalAs(UnmanagedType.LPStr)] string _3,
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr, SizeParamIndex = 4)] string[] args,
-            uint argCount
+            uint _4
         )
         {
-            Log.WriteLine(function + ": " + string.Join("; ", args));
-            if (
-                (
-                    function == "send" ||
-                    function == ":POS:"
-                ) && 
-                argCount == 1
-            ) {
-                UdpClient.Send(Encoding.ASCII.GetBytes(args[0]), Encoding.ASCII.GetByteCount(args[0]), SourceEndpoint);
-            }
+            //Log.WriteLine(function + ": " + string.Join("; ", args));
+            UdpClient.Send(Encoding.ASCII.GetBytes(args[0]), Encoding.ASCII.GetByteCount(args[0]), SourceEndpoint);     
             return 0;
         }
     }

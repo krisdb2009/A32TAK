@@ -12,7 +12,7 @@ namespace A32TAK
         public char? GridSquareSecond;
         public double? GeoidHeight;
         public IPEndPoint? Target;
-        private UdpClient UdpClient = new();
+        private readonly UdpClient UdpClient = new();
         public COTSender()
         {
             A32TAK.UdpListener.ReceivedData += UdpListener_ReceivedData;

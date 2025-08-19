@@ -18,5 +18,9 @@
                 A32TAK.MainWindow.rtbLogs.ScrollToCaret();
             });
         }
+        public static void Clear()
+        {
+            A32TAK.MainWindow.Invoke(A32TAK.MainWindow.rtbLogs.Clear);
+        }
     }
 }

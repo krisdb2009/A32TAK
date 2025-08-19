@@ -4,6 +4,7 @@ namespace A32TAK
 {
     public partial class MainWindow : Form
     {
+        public bool DebugMode = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -12,8 +13,10 @@ namespace A32TAK
         {
             foreach (MGRSProfile profile in MGRSProfiles.Profiles)
             {
-                ToolStripMenuItem mi = new(profile.Name);
-                mi.Tag = profile;
+                ToolStripMenuItem mi = new(profile.Name)
+                {
+                    Tag = profile
+                };
                 mi.Click += MiProfile_Click;
                 tsmProfiles.DropDownItems.Add(mi);
             }
@@ -42,7 +45,7 @@ namespace A32TAK
                 Invoke(() => lblActivity.ForeColor = Color.Gray);
             });
         }
-        private void btnSetTarget_Click(object sender, EventArgs e)
+        private void BtnSetTarget_Click(object sender, EventArgs e)
         {
             if (IPEndPoint.TryParse(tbTargetIPAddresss.Text + ':' + tbTargetPort.Text, out IPEndPoint? target))
             {
@@ -105,13 +108,21 @@ namespace A32TAK
                 Logger.Log("Could not parse Geoid Height.", Color.Red);
             }
         }
-        private void tsmClose_Click(object sender, EventArgs e)
+        private void TsmClose_Click(object sender, EventArgs e)
         {
             Close();
         }
-        private void tsmAbout_Click(object sender, EventArgs e)
+        private void TsmAbout_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
+        }
+        private void CbDebug_CheckedChanged(object sender, EventArgs e)
+        {
+            DebugMode = cbDebug.Checked;
+        }
+        private void BtnClearLog_Click(object sender, EventArgs e)
+        {
+            Logger.Clear();
         }
     }
 }

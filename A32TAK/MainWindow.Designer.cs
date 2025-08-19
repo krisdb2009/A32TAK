@@ -47,6 +47,8 @@
             lblActivity = new Label();
             lblActivityL = new Label();
             tbGeoidHeight = new TextBox();
+            cbDebug = new CheckBox();
+            btnClearLog = new Button();
             msMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,7 +71,7 @@
             lblTargetIP.FlatStyle = FlatStyle.System;
             lblTargetIP.Location = new Point(12, 35);
             lblTargetIP.Name = "lblTargetIP";
-            lblTargetIP.Size = new Size(103, 15);
+            lblTargetIP.Size = new Size(105, 15);
             lblTargetIP.TabIndex = 3;
             lblTargetIP.Text = "Target TAK IP, Port";
             // 
@@ -84,13 +86,13 @@
             // btnSetTarget
             // 
             btnSetTarget.FlatStyle = FlatStyle.System;
-            btnSetTarget.Location = new Point(10, 131);
+            btnSetTarget.Location = new Point(11, 131);
             btnSetTarget.Name = "btnSetTarget";
             btnSetTarget.Size = new Size(48, 23);
             btnSetTarget.TabIndex = 5;
             btnSetTarget.Text = "Set";
             btnSetTarget.UseVisualStyleBackColor = true;
-            btnSetTarget.Click += btnSetTarget_Click;
+            btnSetTarget.Click += BtnSetTarget_Click;
             // 
             // tbTargetPort
             // 
@@ -127,7 +129,7 @@
             lblMGRSDesc.FlatStyle = FlatStyle.System;
             lblMGRSDesc.Location = new Point(12, 79);
             lblMGRSDesc.Name = "lblMGRSDesc";
-            lblMGRSDesc.Size = new Size(402, 15);
+            lblMGRSDesc.Size = new Size(403, 15);
             lblMGRSDesc.TabIndex = 10;
             lblMGRSDesc.Text = "UTM Zone, Latitude Band, Grid Square 1, Grid Square 2             Geoid Height";
             // 
@@ -159,7 +161,7 @@
             tsmClose.Name = "tsmClose";
             tsmClose.Size = new Size(103, 22);
             tsmClose.Text = "Close";
-            tsmClose.Click += tsmClose_Click;
+            tsmClose.Click += TsmClose_Click;
             // 
             // tsmProfiles
             // 
@@ -172,7 +174,7 @@
             tsmAbout.Name = "tsmAbout";
             tsmAbout.Size = new Size(52, 20);
             tsmAbout.Text = "About";
-            tsmAbout.Click += tsmAbout_Click;
+            tsmAbout.Click += TsmAbout_Click;
             // 
             // lblActivity
             // 
@@ -203,11 +205,37 @@
             tbGeoidHeight.Size = new Size(46, 23);
             tbGeoidHeight.TabIndex = 15;
             // 
+            // cbDebug
+            // 
+            cbDebug.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cbDebug.FlatStyle = FlatStyle.System;
+            cbDebug.Location = new Point(584, 35);
+            cbDebug.Name = "cbDebug";
+            cbDebug.Size = new Size(57, 20);
+            cbDebug.TabIndex = 16;
+            cbDebug.Text = "Debug";
+            cbDebug.UseVisualStyleBackColor = true;
+            cbDebug.CheckedChanged += CbDebug_CheckedChanged;
+            // 
+            // btnClearLog
+            // 
+            btnClearLog.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnClearLog.FlatStyle = FlatStyle.System;
+            btnClearLog.Location = new Point(563, 131);
+            btnClearLog.Name = "btnClearLog";
+            btnClearLog.Size = new Size(75, 23);
+            btnClearLog.TabIndex = 17;
+            btnClearLog.Text = "Clear Log";
+            btnClearLog.UseVisualStyleBackColor = true;
+            btnClearLog.Click += BtnClearLog_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(651, 458);
+            Controls.Add(btnClearLog);
+            Controls.Add(cbDebug);
             Controls.Add(tbGeoidHeight);
             Controls.Add(lblActivityL);
             Controls.Add(tbUTMZone);
@@ -254,5 +282,7 @@
         private Label lblActivity;
         private Label lblActivityL;
         private TextBox tbGeoidHeight;
+        private CheckBox cbDebug;
+        private Button btnClearLog;
     }
 }
