@@ -36,7 +36,7 @@ namespace A32TAK
             tbGeoidHeight.Text = profile.GeoidHeight.ToString();
             btnSetTarget.PerformClick();
         }
-        private void UdpListener_ReceivedData(object? sender, ReceivedDataArgs e)
+        private void UdpListener_ReceivedData(object? sender, Game.Message e)
         {
             Task.Run(async () =>
             {
@@ -50,7 +50,7 @@ namespace A32TAK
             if (IPEndPoint.TryParse(tbTargetIPAddresss.Text + ':' + tbTargetPort.Text, out IPEndPoint? target))
             {
                 Logger.Log("Target set to: " + target.ToString() + '.', Color.Green);
-                A32TAK.COTSender.Target = target;
+                A32TAK.COTSender.UnicastTarget = target;
             }
             else
             {

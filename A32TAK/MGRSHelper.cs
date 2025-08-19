@@ -2,9 +2,9 @@
 {
     public static class MGRSHelper
     {
-        public static char[] LatitudeBandRange = "CDEFGHJKLMNPQRSTUVWXX".ToCharArray();
-        public static char[] GridSquareFirstRange = "ABCDEFGHJKLMNPQRSTUVWXYZ".ToCharArray();
-        public static char[] GridSquareSecondRange = "ABCDEFGHJKLMNPQRSTUVFGHJKLMNPQRSTUVABCDE".ToCharArray();
+        public static readonly char[] LatitudeBandRange = "CDEFGHJKLMNPQRSTUVWXX".ToCharArray();
+        public static readonly char[] GridSquareFirstRange = "ABCDEFGHJKLMNPQRSTUVWXYZ".ToCharArray();
+        public static readonly char[] GridSquareSecondRange = "ABCDEFGHJKLMNPQRSTUVFGHJKLMNPQRSTUVABCDE".ToCharArray();
         public static (double Latitude, double Longitude) LatLongFromMGRS(uint UTMZone, char LatitudeBand, char GridSquareFirst, char GridSquareSecond, uint Easting, uint Northing)
         {
             double dUTMZone = UTMZone;

@@ -16,7 +16,7 @@
     <Copyright>Dylan B / Kevin B</Copyright>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
-    <Version>1.1.0.0</Version>
+    <Version>2.0.0.0</Version>
     <ApplicationIcon>A32TAK.ico</ApplicationIcon>
     <Platforms>x64;x86</Platforms>
   </PropertyGroup>

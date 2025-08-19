@@ -20,7 +20,7 @@ namespace A32TAK
             }
         }
         public UdpClient UdpClient = new();
-        public event EventHandler<ReceivedDataArgs>? ReceivedData;
+        public event EventHandler<Game.Message>? ReceivedData;
         private readonly IPEndPoint _BindEndpoint = new(IPAddress.Loopback, 12345);
         private readonly JsonSerializerOptions JSO = new() { PropertyNameCaseInsensitive = true, IncludeFields = true };
         public UdpListener()
@@ -36,22 +36,22 @@ namespace A32TAK
                     string message = Encoding.ASCII.GetString(buffer, 0, buffer.Length).TrimEnd('\x00');
                     try
                     {
-                        JsonReceivedData jrd = JsonSerializer.Deserialize<JsonReceivedData>(
+                        Game.Message gMessage = JsonSerializer.Deserialize<Game.Message>(
                             message,
                             JSO
                         );
-                        ReceivedData?.Invoke(this, ParseJsonData(jrd));
+                        if (A32TAK.MainWindow.DebugMode)
+                        {
+                            Logger.Log(message, Color.Aqua);
+                        }
+                        ReceivedData?.Invoke(this, gMessage);
                     }
                     catch
                     {
                         if (A32TAK.MainWindow.DebugMode)
                         {
-                            Logger.Log("Recieved bad packet:", Color.Red);
+                            Logger.Log("Bad JSON!", Color.Red);
                         }
-                    }
-                    if (A32TAK.MainWindow.DebugMode)
-                    {
-                        Logger.Log(message, Color.Gray);
                     }
                 }
             });
@@ -60,31 +60,5 @@ namespace A32TAK
         {
             UdpClient.Client.Bind(_BindEndpoint);
         }
-        private static ReceivedDataArgs ParseJsonData(JsonReceivedData JsonReceivedData) => new()
-        {
-            X = JsonReceivedData.Player.Position[0],
-            Y = JsonReceivedData.Player.Position[1],
-            Z = JsonReceivedData.Player.Position[2],
-            Direction = JsonReceivedData.Player.Direction,
-            Speed = JsonReceivedData.Player.Direction
-        };
-    }
-    public struct JsonReceivedData
-    {
-        public JsonPlayer Player;
-    }
-    public struct JsonPlayer
-    {
-        public float[] Position;
-        public float Speed;
-        public float Direction;
-    }
-    public class ReceivedDataArgs : EventArgs
-    {
-        public float X;
-        public float Y;
-        public float Z;
-        public float Direction;
-        public float Speed;
     }
 }

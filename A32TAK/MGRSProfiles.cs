@@ -11,7 +11,7 @@
     }
     public static class MGRSProfiles
     {
-        public static MGRSProfile[] Profiles = [
+        public static readonly MGRSProfile[] Profiles = [
             new()
             {
                 Name = "Altis",
