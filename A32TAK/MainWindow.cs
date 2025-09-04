@@ -1,10 +1,13 @@
 ﻿using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace A32TAK
 {
     public partial class MainWindow : Form
     {
         public bool DebugMode = false;
+        private readonly NetworkInterface[] Interfaces = NetworkInterface.GetAllNetworkInterfaces();
         public MainWindow()
         {
             InitializeComponent();
@@ -20,6 +23,15 @@ namespace A32TAK
                 mi.Click += MiProfile_Click;
                 tsmProfiles.DropDownItems.Add(mi);
             }
+            foreach (NetworkInterface iface in Interfaces)
+            {
+                foreach (UnicastIPAddressInformation ip in iface.GetIPProperties().UnicastAddresses)
+                {
+                    if (ip.Address.AddressFamily != AddressFamily.InterNetwork) continue;
+                    cbBindAdapter.Items.Add(ip.Address.ToString() + ": " + iface.Name);
+                }
+            }
+            cbBindAdapter.SelectedIndex = 0;
             A32TAK.UdpListener.ReceivedData += UdpListener_ReceivedData;
             Logger.Log("A32TAK Started.");
         }
@@ -47,6 +59,15 @@ namespace A32TAK
         }
         private void BtnSetTarget_Click(object sender, EventArgs e)
         {
+            if (IPAddress.TryParse(cbBindAdapter.Text.Split(':')[0], out IPAddress? bind))
+            {
+                Logger.Log("Bind IP set to: " + bind.ToString() + '.', Color.Green);
+                A32TAK.COTSender.BindAddress = bind;
+            }
+            else
+            {
+                Logger.Log("Could not parse bind IP address.", Color.Red);
+            }
             if (IPEndPoint.TryParse(tbTargetIPAddresss.Text + ':' + tbTargetPort.Text, out IPEndPoint? target))
             {
                 Logger.Log("Target set to: " + target.ToString() + '.', Color.Green);

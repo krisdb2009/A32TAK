@@ -49,6 +49,8 @@
             tbGeoidHeight = new TextBox();
             cbDebug = new CheckBox();
             btnClearLog = new Button();
+            cbBindAdapter = new ComboBox();
+            lblBindAdapter = new Label();
             msMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -229,11 +231,35 @@
             btnClearLog.UseVisualStyleBackColor = true;
             btnClearLog.Click += BtnClearLog_Click;
             // 
+            // cbBindAdapter
+            // 
+            cbBindAdapter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cbBindAdapter.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbBindAdapter.FlatStyle = FlatStyle.System;
+            cbBindAdapter.FormattingEnabled = true;
+            cbBindAdapter.Location = new Point(459, 97);
+            cbBindAdapter.Name = "cbBindAdapter";
+            cbBindAdapter.Size = new Size(178, 23);
+            cbBindAdapter.TabIndex = 18;
+            // 
+            // lblBindAdapter
+            // 
+            lblBindAdapter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblBindAdapter.AutoSize = true;
+            lblBindAdapter.FlatStyle = FlatStyle.System;
+            lblBindAdapter.Location = new Point(459, 79);
+            lblBindAdapter.Name = "lblBindAdapter";
+            lblBindAdapter.Size = new Size(76, 15);
+            lblBindAdapter.TabIndex = 19;
+            lblBindAdapter.Text = "Bind Adapter";
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(651, 458);
+            Controls.Add(lblBindAdapter);
+            Controls.Add(cbBindAdapter);
             Controls.Add(btnClearLog);
             Controls.Add(cbDebug);
             Controls.Add(tbGeoidHeight);
@@ -284,5 +310,7 @@
         private TextBox tbGeoidHeight;
         private CheckBox cbDebug;
         private Button btnClearLog;
+        private ComboBox cbBindAdapter;
+        private Label lblBindAdapter;
     }
 }

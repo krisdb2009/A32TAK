@@ -14,6 +14,26 @@ namespace A32TAK
         public IPEndPoint? UnicastTarget;
         public IPEndPoint MulticastTarget = new(IPAddress.Parse("239.2.3.1"), 6969);
         private readonly UdpClient UdpClient = new();
+        private IPAddress _BindAddress = IPAddress.None;
+        public IPAddress BindAddress
+        {
+            get
+            {
+                return _BindAddress;
+            }
+            set
+            {
+                _BindAddress = value;
+                try
+                { 
+                    UdpClient.Client.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.MulticastInterface, _BindAddress.GetAddressBytes());
+                }
+                catch
+                {
+                    Logger.Log("Failed to set multicast interface.", Color.Red);
+                }
+            }
+        }
         public COTSender()
         {
             A32TAK.UdpListener.ReceivedData += UdpListener_ReceivedData;
@@ -36,8 +56,15 @@ namespace A32TAK
             {
                 (double droneLatitude, double droneLongitude) = MGRSHelper.LatLongFromMGRS((uint)UTMZone, (char)LatitudeBand, (char)GridSquareFirst, (char)GridSquareSecond, (uint)e.Drone.Value.Position[0], (uint)e.Drone.Value.Position[1]);
                 droneCotXml = COTBuilders.BuildDroneCOT(droneLatitude, droneLongitude, e.Drone.Value.Direction, e.Drone.Value.Speed / 3.6, (double)(e.Drone.Value.Position[2] + GeoidHeight), e.Drone.Value.Name).OuterXml;
-                byte[] droneCotXmlBytes = Encoding.ASCII.GetBytes(playerCotXml);
-                UdpClient.Send(droneCotXmlBytes, droneCotXmlBytes.Length, MulticastTarget);
+                byte[] droneCotXmlBytes = Encoding.ASCII.GetBytes(droneCotXml);
+                try
+                {
+                    UdpClient.Send(droneCotXmlBytes, droneCotXmlBytes.Length, MulticastTarget);
+                }
+                catch
+                {
+                    Logger.Log("Failed to send multicast packet.", Color.Red);
+                }
             }
 
             if (A32TAK.MainWindow.DebugMode)
