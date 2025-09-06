@@ -51,6 +51,7 @@
             btnClearLog = new Button();
             cbBindAdapter = new ComboBox();
             lblBindAdapter = new Label();
+            tbDroneCallsign = new TextBox();
             msMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -73,9 +74,9 @@
             lblTargetIP.FlatStyle = FlatStyle.System;
             lblTargetIP.Location = new Point(12, 35);
             lblTargetIP.Name = "lblTargetIP";
-            lblTargetIP.Size = new Size(105, 15);
+            lblTargetIP.Size = new Size(242, 15);
             lblTargetIP.TabIndex = 3;
-            lblTargetIP.Text = "Target TAK IP, Port";
+            lblTargetIP.Text = "Target TAK IP, Port                    Drone Callsign";
             // 
             // tbTargetIPAddresss
             // 
@@ -253,11 +254,19 @@
             lblBindAdapter.TabIndex = 19;
             lblBindAdapter.Text = "Bind Adapter";
             // 
+            // tbDroneCallsign
+            // 
+            tbDroneCallsign.Location = new Point(168, 53);
+            tbDroneCallsign.Name = "tbDroneCallsign";
+            tbDroneCallsign.Size = new Size(134, 23);
+            tbDroneCallsign.TabIndex = 20;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(651, 458);
+            Controls.Add(tbDroneCallsign);
             Controls.Add(lblBindAdapter);
             Controls.Add(cbBindAdapter);
             Controls.Add(btnClearLog);
@@ -312,5 +321,6 @@
         private Button btnClearLog;
         private ComboBox cbBindAdapter;
         private Label lblBindAdapter;
+        private TextBox tbDroneCallsign;
     }
 }

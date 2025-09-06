@@ -128,6 +128,12 @@ namespace A32TAK
             {
                 Logger.Log("Could not parse Geoid Height.", Color.Red);
             }
+            A32TAK.COTSender.ManualDroneCallsign = tbDroneCallsign.Text;
+            if (tbDroneCallsign.Text != string.Empty)
+            {
+                Logger.Log("Manual drone callsign set to: " + tbDroneCallsign.Text + '.', Color.Green);
+                
+            }
         }
         private void TsmClose_Click(object sender, EventArgs e)
         {

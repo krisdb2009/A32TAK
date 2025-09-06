@@ -13,6 +13,7 @@ namespace A32TAK
         public double? GeoidHeight;
         public IPEndPoint? UnicastTarget;
         public IPEndPoint MulticastTarget = new(IPAddress.Parse("239.2.3.1"), 6969);
+        public string ManualDroneCallsign = string.Empty;
         private readonly UdpClient UdpClient = new();
         private IPAddress _BindAddress = IPAddress.None;
         public IPAddress BindAddress
@@ -45,7 +46,7 @@ namespace A32TAK
             if (GridSquareFirst == null) return;
             if (GridSquareSecond == null) return;
             if (GeoidHeight == null) return;
-            
+
             (double playerLatitude, double playerLongitude) = MGRSHelper.LatLongFromMGRS((uint)UTMZone, (char)LatitudeBand, (char)GridSquareFirst, (char)GridSquareSecond, (uint)e.Player.Position[0], (uint)e.Player.Position[1]);
             string playerCotXml = COTBuilders.BuildPlayerCOT(playerLatitude, playerLongitude, e.Player.Direction, e.Player.Speed / 3.6, (double)(e.Player.Position[2] + GeoidHeight)).OuterXml;
             byte[] playerCotXmlBytes = Encoding.ASCII.GetBytes(playerCotXml);
@@ -54,8 +55,11 @@ namespace A32TAK
             string droneCotXml = string.Empty;
             if (e.Drone != null)
             {
+                string droneCallsign = e.Drone.Value.Name;
+                if (ManualDroneCallsign != string.Empty) droneCallsign = ManualDroneCallsign;
+
                 (double droneLatitude, double droneLongitude) = MGRSHelper.LatLongFromMGRS((uint)UTMZone, (char)LatitudeBand, (char)GridSquareFirst, (char)GridSquareSecond, (uint)e.Drone.Value.Position[0], (uint)e.Drone.Value.Position[1]);
-                droneCotXml = COTBuilders.BuildDroneCOT(droneLatitude, droneLongitude, e.Drone.Value.Direction, e.Drone.Value.Speed / 3.6, (double)(e.Drone.Value.Position[2] + GeoidHeight), e.Drone.Value.Name).OuterXml;
+                droneCotXml = COTBuilders.BuildDroneCOT(droneLatitude, droneLongitude, e.Drone.Value.Direction, e.Drone.Value.Speed / 3.6, (double)(e.Drone.Value.Position[2] + GeoidHeight), droneCallsign).OuterXml;
                 byte[] droneCotXmlBytes = Encoding.ASCII.GetBytes(droneCotXml);
                 try
                 {
@@ -67,10 +71,27 @@ namespace A32TAK
                 }
             }
 
+            string spiCotXml = string.Empty;
+            if (e.Laser_Position != null)
+            {
+                (double spiLatitude, double spiLongitude) = MGRSHelper.LatLongFromMGRS((uint)UTMZone, (char)LatitudeBand, (char)GridSquareFirst, (char)GridSquareSecond, (uint)e.Laser_Position[0], (uint)e.Laser_Position[1]);
+                spiCotXml = COTBuilders.BuildSpiCOT(spiLatitude, spiLongitude, (double)(e.Laser_Position[2] + GeoidHeight)).OuterXml;
+                byte[] spiCotXmlBytes = Encoding.ASCII.GetBytes(spiCotXml);
+                try
+                {
+                    UdpClient.Send(spiCotXmlBytes, spiCotXmlBytes.Length, MulticastTarget);
+                }
+                catch
+                {
+                    Logger.Log("Failed to send multicast packet.", Color.Red);
+                }
+            }
+
             if (A32TAK.MainWindow.DebugMode)
             {
                 Logger.Log(playerCotXml, Color.MediumPurple);
                 Logger.Log(droneCotXml, Color.PeachPuff);
+                Logger.Log(spiCotXml, Color.Tan);
             }
         }
     }
