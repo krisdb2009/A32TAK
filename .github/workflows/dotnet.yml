@@ -25,4 +25,4 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
-        path: D:\a\A32TAK\A32TAK\*\publish\
+        path: D:\a\A32TAK\A32TAK\*\bin\**\publish\
